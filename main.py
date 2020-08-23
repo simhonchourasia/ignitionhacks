@@ -47,7 +47,7 @@ model = tf.keras.Sequential([
     tf.keras.layers.Embedding(vocab_size, 16, input_length=max_len),
     tf.keras.layers.GlobalAveragePooling1D(),
     tf.keras.layers.Dropout(0.3),
-    tf.keras.layers.Dense(128, activation='relu'),
+    #tf.keras.layers.Dense(128, activation='relu'),
     tf.keras.layers.Dropout(0.5),
     tf.keras.layers.Dense(1, activation='sigmoid')
 ])
@@ -58,12 +58,25 @@ model.compile(loss="binary_crossentropy", optimizer="adam", metrics=['accuracy']
 # MODEL: CNN
 model = tf.keras.Sequential([
     tf.keras.layers.Embedding(vocab_size, 16, input_length=max_len),
-    tf.keras.layers.Conv1D(16, 5, activation='relu'),
+    tf.keras.layers.SeparableConv1D(16, 5, activation='relu', bias_initializer='random_uniform', depthwise_initializer='random_uniform', padding='same'),
     tf.keras.layers.GlobalMaxPooling1D(),
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dropout(0.5),
     tf.keras.layers.Dense(1, activation='sigmoid')
 ])
+
+
+class ResetStatesCallback(tf.keras.callbacks.Callback):
+    def on_epoch_begin(self, epoch, logs):
+        self.model.reset_states()
+
+
+reset_states = ResetStatesCallback()
+
 model.compile(loss='binary_crossentropy', optimizer=tf.keras.optimizers.Adam(0.001), metrics=['accuracy'])
 model.summary()
+
+
 #'''
 
 '''
@@ -77,10 +90,17 @@ model = tf.keras.Sequential([
 model.compile(loss='binary_crossentropy', optimizer=tf.keras.optimizers.Adam(0.001), metrics=['accuracy'])
 '''
 
+early_stopping = tf.keras.callbacks.EarlyStopping(patience=50)
+model_checkpoint = tf.keras.callbacks.ModelCheckpoint("maincheckpoint.h5", save_best_only=True)
 
+epochs = 15
+# history = model.fit(train_padded, y_train, epochs=epochs, validation_data=(dev_padded, y_dev))
+history = model.fit(train_padded, epochs=epochs, validation_data=(dev_padded, y_dev), callbacks=[early_stopping, model_checkpoint, reset_states])
 
-epochs = 10
-history = model.fit(train_padded, y_train, epochs=epochs, validation_data=(dev_padded, y_dev))
+model = tf.keras.models.load_model("maincheckpoint.h5")
+
+predictions = model.predict(X_dev)
+print("accuracy: ", tf.metrics.binary_accuracy(y_dev, predictions))
 
 plt.plot(history.history["accuracy"])
 plt.plot(history.history["val_accuracy"])
