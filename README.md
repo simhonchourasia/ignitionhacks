@@ -69,7 +69,16 @@ A variety of models were created and tested on the training data, such as one wi
 
 The first model created used only dense and dropout layers, and used the following code:
 
-![](https://lh5.googleusercontent.com/_upTBTWcF8xD3643mB5Kqzy1XM6Hrrf75LqcZXCU6LWRMBSFqDvzsoMKQyk0lJupXNPu80M6YB1FcfbAqCDM2LfpwJO0cZH7Zqt4vTioiMrtJ1X7MzTqL2X2kloXAiUjqbyjC_ku)
+```python
+model = tf.keras.Sequential([
+    tf.keras.layers.Embedding(vocab_size, 16, input_length=max_len),
+    tf.keras.layers.GlobalAveragePooling1D(),
+    tf.keras.layers.Dropout(0.3),
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dropout(0.5),
+    tf.keras.layers.Dense(1, activation='sigmoid')
+
+```
 
 When using the pre-encoded data, the first two layers must be removed; otherwise, they are necessary for the model. Dropout layers (layers which disable certain layer outputs at random) were chosen to reduce overfitting, and the associated input disable rate was experimented with. Additionally, it was found that for this problem, which is binary classification, the optimal final layer was a dense layer with a sigmoid activation function; however, for the intermediate dense layers, it was optimal to use the relu or tanh activation functions. Both of these were experimented with, but did not yield a significant difference in validation accuracy. The training accuracy and validation accuracy of some of the models using this structure are shown in the graphs below:
 
@@ -85,11 +94,31 @@ However, our model was constrained by the optimization techniques available to t
 
   
 
-Another model which was tested was the convolutional neural network, which functions by applying a convolutional layer over areas of the input data to find important features and patterns in the data. The associated code is shown below:
+Another model which was tested was the convolutional neural network (CNN), which functions by applying a convolutional layer over areas of the input data to find important features and patterns in the data. The associated code is shown below:
 
-![](https://lh3.googleusercontent.com/ENrTXFXOnTnGPiIz7Ex7-CtJP2cFuqmk2O5FhLcB1jQklIUUX3oZXXb4tI8NG_qcgCngqMwmS4DDEJr65HIB1qBYZv28T2gK8SlRjsPnUczOkNoDMuFmOmLrkS_EvHJJYxeen-yH)
+```python
+model = tf.keras.Sequential([
+    tf.keras.layers.Embedding(vocab_size, 16, input_length=max_len),
+    tf.keras.layers.SeparableConv1D(16, 5, activation='relu', bias_initializer='random_uniform', depthwise_initializer='random_uniform', padding='same'),
+    tf.keras.layers.GlobalMaxPooling1D(),
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dropout(0.5),
+    tf.keras.layers.Dense(1, activation='sigmoid')
+])
+```
 
-Unfortunately, since the convolutional neural network took a long time to train without a large number of layers (such as additional intermediate dense and dropout layers), it was unfeasible to train it for many epochs. The graph plotting training accuracy and validation accuracy against the number of epochs is shown below:
+A bidirectional long short-term memory (LSTM) model was also created, using the following code: 
+
+```python
+model = tf.keras.Sequential([
+    tf.keras.layers.Embedding(vocab_size, 16, input_length=max_len),
+    tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(16, return_sequences=True)),
+    tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(16)),
+    tf.keras.layers.Dense(1, activation='sigmoid')
+])
+```
+
+Unfortunately, since both the CNN and bidirectional LSTM models took a long time to train without a large number of layers (such as additional intermediate dense and dropout layers), it was unfeasible to train them for many epochs. The graph plotting training accuracy and validation accuracy against the number of epochs for the CNN is shown below:
 
 <img src="https://lh6.googleusercontent.com/UrbZo9pnWlLVuq5Ab3FSyi5YT7e7obDvhctMSzskItBNHD-p-w_rDnyI1IbyDKZsqoLz0QOP2jnRD4J1ahnn0puh0NRpbJFMaEZ7kVXGk6O7UUmMDU7eiyrnVQXHs4-3adiINp29" width="500">
 
