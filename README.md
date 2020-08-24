@@ -71,6 +71,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 
-* Thank you to Ignition hacks
+* Thank you to Ignition Hacks 2020 for a wonderful challenge and experience!
+* Tensorflow Hub for Universal Sentence Encoder
+* KDnuggets for NLP preprocessing background information: https://www.kdnuggets.com/2019/04/text-preprocessing-nlp-machine-learning.html
 
-
+[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=flat-square
+[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=flat-square
