@@ -73,11 +73,11 @@ The first model created used only dense and dropout layers, and used the followi
 
 When using the pre-encoded data, the first two layers must be removed; otherwise, they are necessary for the model. Dropout layers (layers which disable certain layer outputs at random) were chosen to reduce overfitting, and the associated input disable rate was experimented with. Additionally, it was found that for this problem, which is binary classification, the optimal final layer was a dense layer with a sigmoid activation function; however, for the intermediate dense layers, it was optimal to use the relu or tanh activation functions. Both of these were experimented with, but did not yield a significant difference in validation accuracy. The training accuracy and validation accuracy of some of the models using this structure are shown in the graphs below:
 
-![](https://lh4.googleusercontent.com/53ZbhpBAC_6Pl3dtrJHWEGt1uOmL5QXLXfXI0YDjAn9lYShJYpyk28R34s3TmUKiPPfvmE0wJE7UJeWF-gXtV_-kFZWWrkGrNODziTa0d8AUrJjg30kSUDxWUWK3yhKz6rmI8FLF)
+<img src="https://lh4.googleusercontent.com/53ZbhpBAC_6Pl3dtrJHWEGt1uOmL5QXLXfXI0YDjAn9lYShJYpyk28R34s3TmUKiPPfvmE0wJE7UJeWF-gXtV_-kFZWWrkGrNODziTa0d8AUrJjg30kSUDxWUWK3yhKz6rmI8FLF" width="500">
 
-![](https://lh5.googleusercontent.com/Rh_Ia76JyRNl5GKntlGdSxhTikBByOAhyaWeS6rALSVhTPNtGuurZSm-SnopXdV09tqGaDfQjTor6hPEBEVsjPoJmlVXl2xTQfnHeXTXO1nmoAFN7Y58rIZdFTEupXCZ7w-5TLsj)
+<img src="https://lh5.googleusercontent.com/Rh_Ia76JyRNl5GKntlGdSxhTikBByOAhyaWeS6rALSVhTPNtGuurZSm-SnopXdV09tqGaDfQjTor6hPEBEVsjPoJmlVXl2xTQfnHeXTXO1nmoAFN7Y58rIZdFTEupXCZ7w-5TLsj" width="500">
 
-![](https://lh3.googleusercontent.com/ZFQheDFvgGoz7pK-64pVo6d-8vLUoHCKaGLmhY7Uo0Hv72Iku3LE2e-k_02jqPZPY-FzDvTsIRjX-3JFbInZTZQic2HhxJl6DmMczFQZM3Z2DL1MunPSMbD1WkSh7KkOqymp-WqY)
+<img src="https://lh3.googleusercontent.com/ZFQheDFvgGoz7pK-64pVo6d-8vLUoHCKaGLmhY7Uo0Hv72Iku3LE2e-k_02jqPZPY-FzDvTsIRjX-3JFbInZTZQic2HhxJl6DmMczFQZM3Z2DL1MunPSMbD1WkSh7KkOqymp-WqY" width="500">
 
 Hyperparameter tuning suggested that smaller batch sizes (i.e. 16) were favourable for minimizing validation loss. The models were prone to overfitting, so hidden layer units were decreased and depth was also decreased to two. L2 Regularization was added to apply a penalty on losses and proved to be highly effective in delivering more consistent results and preventing overfitting within the specified epochs.
 
@@ -91,7 +91,7 @@ Another model which was tested was the convolutional neural network, which funct
 
 Unfortunately, since the convolutional neural network took a long time to train without a large number of layers (such as additional intermediate dense and dropout layers), it was unfeasible to train it for many epochs. The graph plotting training accuracy and validation accuracy against the number of epochs is shown below:
 
-![](https://lh6.googleusercontent.com/UrbZo9pnWlLVuq5Ab3FSyi5YT7e7obDvhctMSzskItBNHD-p-w_rDnyI1IbyDKZsqoLz0QOP2jnRD4J1ahnn0puh0NRpbJFMaEZ7kVXGk6O7UUmMDU7eiyrnVQXHs4-3adiINp29)
+<img src="https://lh6.googleusercontent.com/UrbZo9pnWlLVuq5Ab3FSyi5YT7e7obDvhctMSzskItBNHD-p-w_rDnyI1IbyDKZsqoLz0QOP2jnRD4J1ahnn0puh0NRpbJFMaEZ7kVXGk6O7UUmMDU7eiyrnVQXHs4-3adiINp29" width="500">
 
 ## Next Steps
 
