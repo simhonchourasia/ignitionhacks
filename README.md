@@ -34,6 +34,10 @@ The prompt for the 2020 Ignition Hacks Sigma division was to perform sentiment a
 * Pandas
 * NLTK
 
+To Use: Run Main.ipynb with training and test sets from the following folder:
+https://drive.google.com/drive/folders/1OAKLPqU0JVXURqPnvESMhbkNildVIzoc?usp=sharing
+
+
 ## Introduction
 
 The first part of creating a model to perform natural language processing was to decide on the tools. By the rules of the competition, Python was required to be the only allowed programming language. Due to the large amount of online resources, as well as past experience from group members, it was decided that Tensorflow was to be used to construct the model, utilizing additional Python data science modules such as pandas and numpy. The scikit-learn model was not used due to the smaller amount of experimentation and customization which could be done in terms of the model layers. In addition, while pretrained models such as RoBERTa would likely provide superior results to raw Tensorflow code, the training time would be beyond the limits of the hackathon and the available resources, and freezing the layers would go against the rule of not being allowed to use data from outside the hackathon.
