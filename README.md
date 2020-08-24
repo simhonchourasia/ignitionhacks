@@ -42,6 +42,9 @@ The large amount of training data, as well as the lack of sentiment clarity in m
 
 Due to there only being one feature, the tweet itself, it was difficult to collect information about the dataset without using natural language processing tools. It was, however, noted that in the training data, there was an exact 50-50 split between tweets which were labeled to be of positive sentiment and tweets of negative sentiment. Therefore, it was decided that the split between training and validation data would be done at random, with approximately 15% of the data set to be validation data and the remaining 85% to be training data.
 
+### Algorithm Design
+![Algorithm Design](https://raw.githubusercontent.com/Positron23/ignitionhacks/master/ImageAssets/Dissertation.png)
+
 ## Preprocessing
 
 Due to the nature of tweets and other fast text message based communication, it was imperative that preprocessing was necessary for effective natural language processing (NLP) and deep learning.
